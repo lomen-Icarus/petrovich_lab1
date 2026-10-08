@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#173563"/><stop offset="1" stop-color="#0B1B33"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <g transform="translate(80 96) scale(0.16)">
+  <rect width="512" height="512" rx="112" fill="#2563EB"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="28" stroke-linejoin="round">
+    <rect x="112" y="118" width="288" height="112" rx="24"/>
+    <rect x="112" y="282" width="288" height="112" rx="24"/>
+  </g>
+  <circle cx="170" cy="174" r="18" fill="#FFFFFF"/><circle cx="170" cy="338" r="18" fill="#FFFFFF"/>
+  <path d="M236 174 H340 M236 338 H340" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round"/>
+</g>
+  <text x="186" y="148" font-family="Inter, 'DejaVu Sans', Arial, sans-serif" font-size="40" font-weight="600" fill="#C7D4EA">Хостинг для проектов</text>
+  <text x="80" y="290" font-family="Inter, 'DejaVu Sans', Arial, sans-serif" font-size="72" font-weight="800" fill="#FFFFFF">Хостинг, с которого</text>
+  <text x="80" y="376" font-family="Inter, 'DejaVu Sans', Arial, sans-serif" font-size="72" font-weight="800" fill="#FFFFFF">удобно начать и расти</text>
+  <text x="80" y="470" font-family="Inter, 'DejaVu Sans', Arial, sans-serif" font-size="32" font-weight="400" fill="#C7D4EA">Игровые серверы · боты · сайты и приложения · VPS</text>
+  <text x="80" y="560" font-family="Inter, 'DejaVu Sans', Arial, sans-serif" font-size="26" font-weight="400" fill="#7F96BD">Учебная работа</text>
+</svg>
