@@ -323,7 +323,6 @@ function og() {
   s += t(64, 332, 'удобно начать', { size: 52, weight: 700 });
   s += t(64, 404, 'и расти', { size: 52, weight: 700 });
   s += t(64, 478, 'Игровые серверы, боты, сайты, VPS', { size: 26, fill: C.muted });
-  s += t(64, 566, 'Учебная работа', { size: 24, fill: C.muted });
   return { name: 'og-preview', svg: svgWrap(W, H, s), w: W, h: H, jpg: true };
 }
 
