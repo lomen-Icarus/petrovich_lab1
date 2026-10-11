@@ -30,7 +30,7 @@ const C = {
 };
 const FONT = "'Golos Text', 'DejaVu Sans', Arial, sans-serif";
 const MONO = "'DejaVu Sans Mono', 'Liberation Mono', monospace";
-const FONTS_LINK = 'https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600;700&display=swap';
+const FONTS_LINK = 'https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const t = (x, y, s, o = {}) =>
@@ -126,15 +126,18 @@ function sectionScene() {
 function svgWrap(W, H, body, vb) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="${vb || `0 0 ${W} ${H}`}">${body}</svg>`;
 }
+const SCENE = sectionScene();
 function hero() {
-  const sc = sectionScene();
-  return { name: 'hero-section', svg: svgWrap(sc.W, sc.H, sc.body), w: sc.W, h: sc.H, jpg: true };
+  return { name: 'hero-section', svg: svgWrap(SCENE.W, SCENE.H, SCENE.body), w: SCENE.W, h: SCENE.H, jpg: true };
 }
-// Крупный фрагмент того же разреза: «первый сервер» — для строки Minecraft
+// Кадр того же разреза для телефона: без крайних деревьев, 4:3, постройки и серверная крупнее
+function heroMobile() {
+  return { name: 'hero-section-mobile', svg: svgWrap(1280, 960, SCENE.body, `${4.5 * B} ${1.5 * B} ${32 * B} ${24 * B}`), w: 1280, h: 960, jpg: true };
+}
+// Широкий фрагмент того же разреза: «первый сервер» — для строки Minecraft.
+// Пропорции ~3:2, чтобы на телефоне картинка не занимала полэкрана.
 function firstServer() {
-  const sc = sectionScene();
-  // область вокруг флажка и первого блока, до кабеля в грунте
-  return { name: 'first-server', svg: svgWrap(1200, 1000, sc.body, `${3 * B} ${7 * B} ${12 * B} ${10 * B}`), w: 1200, h: 1000, jpg: true };
+  return { name: 'first-server', svg: svgWrap(1200, 840, SCENE.body, `${1.5 * B} ${5.75 * B} ${15 * B} ${10.5 * B}`), w: 1200, h: 840, jpg: true };
 }
 
 // ---------- 2. Фронт серверной стойки (раздел «Подход») ----------
@@ -190,6 +193,8 @@ function frame(active, body) {
   });
   return svgWrap(W, H, s + body);
 }
+// Одни и те же демонстрационные значения на всех экранах панели
+const RES = [['Процессор', '38 %', 0.38], ['Память', '3,1 из 6 ГБ', 0.52], ['Диск', '12 из 40 ГБ', 0.30]];
 const bar = (x, y, w, pct, color) => r(x, y, w, 14, UI.bar, { rx: 3 }) + r(x, y, Math.round(w * pct), 14, color, { rx: 3 });
 const status = (x, y) => r(x, y, 176, 44, UI.okBg, { rx: 6 }) + r(x + 18, y + 15, 14, 14, UI.ok, { rx: 2 }) + t(x + 42, y + 31, 'Работает', { size: 24, weight: 600, fill: UI.ok });
 
@@ -197,7 +202,7 @@ function overview() {
   let b = '';
   b += t(340, 175, 'minecraft-survival', { size: 40, weight: 700 }) + status(720, 143);
   b += t(340, 220, 'Minecraft Java · сборка Paper', { size: 24, fill: UI.gray });
-  [['Процессор', '38 %', 0.38], ['Память', '3,1 из 6 ГБ', 0.52], ['Диск', '12 из 40 ГБ', 0.30], ['Игроки онлайн', '7 из 20', 0.35]].forEach((c, i) => {
+  [...RES, ['Игроки онлайн', '7 из 20', 0.35]].forEach((c, i) => {
     const x = 340 + i * 300, y = 260;
     b += r(x, y, 276, 170, UI.card, { rx: 6, stroke: UI.border });
     b += t(x + 24, y + 48, c[0], { size: 24, fill: UI.gray });
@@ -282,7 +287,7 @@ function consoleView() {
   b += t(cx + 30, cy + ch - 32, '> say Перезапуск через 5 минут', { size: 24, fill: '#FFFFFF', mono: true });
   b += r(cx + cw - 176, cy + ch - 68, 150, 52, C.copper, { rx: 6 }) + t(cx + cw - 101, cy + ch - 33, 'Отправить', { size: 22, weight: 600, fill: '#FFFFFF', anchor: 'middle' });
   const rx = 1228, rw = 312;
-  [['Процессор', '38 %', 0.38], ['Память', '3,1 из 6 ГБ', 0.52], ['Диск', '12 из 40 ГБ', 0.30]].forEach((c, i) => {
+  RES.forEach((c, i) => {
     const y = cy + i * 186;
     b += r(rx, y, rw, 166, UI.card, { rx: 6, stroke: UI.border });
     b += t(rx + 24, y + 48, c[0], { size: 24, fill: UI.gray });
@@ -310,9 +315,8 @@ function icon() { return { name: 'icon-server', svg: svgWrap(512, 512, iconBody(
 // ---------- 5. Превью ссылки для мессенджеров ----------
 function og() {
   const W = 1200, H = 630;
-  const sc = sectionScene();
   let s = r(0, 0, W, H, C.bg);
-  s += `<svg x="640" y="0" width="560" height="${H}" viewBox="${15 * B} 0 ${24 * B} ${27 * B}" preserveAspectRatio="xMidYMid slice">${sc.body}</svg>`;
+  s += `<svg x="640" y="0" width="560" height="${H}" viewBox="${15 * B} 0 ${24 * B} ${27 * B}" preserveAspectRatio="xMidYMid slice">${SCENE.body}</svg>`;
   s += `<g transform="translate(64 64) scale(0.11)">${iconBody()}</g>`;
   s += t(134, 106, 'Хостинг для проектов', { size: 30, weight: 600, fill: C.muted });
   s += t(64, 260, 'Хостинг, с которого', { size: 52, weight: 700 });
@@ -324,20 +328,24 @@ function og() {
 }
 
 (async () => {
-  const items = [hero(), firstServer(), rack(), overview(), files(), consoleView(), icon(), og()];
+  const items = [hero(), heroMobile(), firstServer(), rack(), overview(), files(), consoleView(), icon(), og()];
+  fs.mkdirSync(SRC, { recursive: true });
   const browser = await chromium.launch();
-  const page = await browser.newPage();
-  for (const it of items) {
-    fs.writeFileSync(path.join(SRC, `${it.name}.svg`), it.svg);
-    await page.setViewportSize({ width: it.w, height: it.h });
-    await page.setContent(`<!doctype html><html><head><link rel="stylesheet" href="${FONTS_LINK}"></head><body style="margin:0">${it.svg}</body></html>`, { waitUntil: 'networkidle' });
-    await page.evaluate(() => document.fonts.ready);
-    await page.screenshot({
-      path: path.join(OUT, `${it.name}.${it.jpg ? 'jpg' : 'png'}`),
-      clip: { x: 0, y: 0, width: it.w, height: it.h },
-      ...(it.jpg ? { type: 'jpeg', quality: 90 } : {}),
-    });
-    console.log('ok', it.name);
+  try {
+    const page = await browser.newPage();
+    for (const it of items) {
+      fs.writeFileSync(path.join(SRC, `${it.name}.svg`), it.svg);
+      await page.setViewportSize({ width: it.w, height: it.h });
+      await page.setContent(`<!doctype html><html><head><link rel="stylesheet" href="${FONTS_LINK}"></head><body style="margin:0">${it.svg}</body></html>`, { waitUntil: 'networkidle' });
+      await page.evaluate(() => document.fonts.ready);
+      await page.screenshot({
+        path: path.join(OUT, `${it.name}.${it.jpg ? 'jpg' : 'png'}`),
+        clip: { x: 0, y: 0, width: it.w, height: it.h },
+        ...(it.jpg ? { type: 'jpeg', quality: 90 } : {}),
+      });
+      console.log('ok', it.name);
+    }
+  } finally {
+    await browser.close();
   }
-  await browser.close();
-})();
+})().catch((e) => { console.error(e); process.exit(1); });

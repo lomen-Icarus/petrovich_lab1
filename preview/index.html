@@ -8,7 +8,7 @@
 <link rel="icon" href="../images/icon-server.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@600;700&family=Golos+Text:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@700&family=Golos+Text:wght@400;600&display=swap">
 <!--
   ПРОТОТИП. Визуальный эталон для сборки страницы в Битрикс24.Сайты (правила — docs/DESIGN.md).
   Сам по себе этот файл НЕ выполняет требование лабораторной (см. README.md).
@@ -18,13 +18,15 @@
   :root{
     --green:#1F3D32; --green-d:#172E26; --bg:#EEF1EA; --white:#FFFFFF; --stone:#B9C0B7;
     --copper:#A8522A; --copper-d:#8F4420; --text:#14211C; --muted:#4B5A53; --on-green:#E4EBE6; --on-green-muted:#B7C6BD;
-    --radius:6px;
+    --radius:6px; --header:68px;
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth;scroll-padding-top:72px}
+  html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header) + 4px)}
   body{margin:0;font-family:"Golos Text",Arial,sans-serif;font-size:17px;line-height:1.6;color:var(--text);background:var(--bg)}
+  body.locked{overflow:hidden}
   img{max-width:100%;height:auto;display:block}
   a{color:var(--copper)}
+  b{font-weight:600}
   .wrap{max-width:1160px;margin:0 auto;padding:0 20px}
   h1,h2,h3{font-family:Commissioner,"Golos Text",Arial,sans-serif;font-weight:700;line-height:1.12;margin:0 0 16px;letter-spacing:-.01em}
   h1{font-size:clamp(36px,4.8vw,58px);letter-spacing:-.02em}
@@ -32,24 +34,23 @@
   h3{font-size:21px;line-height:1.25}
   p{margin:0 0 16px}
   .lead{font-size:19px;color:var(--muted);max-width:720px}
-  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border-radius:var(--radius);font-weight:600;font-size:16px;text-decoration:none;border:2px solid var(--copper);background:var(--copper);color:#fff;cursor:pointer;font-family:inherit}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border-radius:var(--radius);font-weight:600;font-size:16px;text-decoration:none;border:2px solid var(--copper);background:var(--copper);color:#fff;cursor:pointer;font-family:inherit;text-align:center}
   .btn:hover{background:var(--copper-d);border-color:var(--copper-d)}
-  .btn.line{background:transparent;color:var(--text);border-color:var(--text)}
-  .btn.line:hover{background:var(--text);color:#fff}
-  .link{font-weight:600;color:var(--text);text-decoration:underline;text-decoration-color:var(--copper);text-decoration-thickness:2px;text-underline-offset:5px;min-height:48px;display:inline-flex;align-items:center}
+  .link{font-weight:600;color:var(--text);text-decoration:underline;text-decoration-color:var(--copper);text-decoration-thickness:2px;text-underline-offset:5px;min-height:44px;display:inline-flex;align-items:center;white-space:nowrap}
   .link:hover{color:var(--copper)}
   .btn:focus-visible,a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var(--copper);outline-offset:3px}
 
   /* Шапка */
   header{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:2px solid var(--stone)}
-  .bar{display:flex;align-items:center;gap:28px;min-height:68px}
+  .bar{display:flex;align-items:center;gap:28px;min-height:var(--header)}
   .logo{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:600;white-space:nowrap}
-  .logo img{width:32px;height:32px;border-radius:4px}
+  .logo img{width:32px;height:32px;border-radius:var(--radius)}
   nav{margin-left:auto}
-  nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+  nav ul{display:flex;align-items:center;gap:28px;list-style:none;margin:0;padding:0}
   nav a{color:var(--text);text-decoration:none;font-weight:600}
   nav a:hover{color:var(--copper)}
-  .burger{display:none;margin-left:auto;background:none;border:2px solid var(--text);color:var(--text);border-radius:var(--radius);min-height:44px;min-width:44px;font-size:20px;cursor:pointer}
+  nav .nav-cta{display:none}
+  .burger{display:none;margin-left:auto;background:none;border:2px solid var(--text);color:var(--text);border-radius:var(--radius);min-height:44px;min-width:44px;font-size:20px;line-height:1;cursor:pointer;font-family:inherit}
 
   /* Первый экран: иллюстрация продолжает фон страницы */
   .hero{padding:56px 0 0}
@@ -68,16 +69,17 @@
   .main-dir h3{font-size:clamp(28px,3vw,36px)}
   .main-dir p{font-size:19px;color:var(--muted);max-width:520px;margin-bottom:24px}
   .rows{border-top:2px solid var(--text)}
-  .row{display:grid;grid-template-columns:4fr 6fr auto;gap:24px 40px;align-items:center;padding:24px 0;border-bottom:2px solid var(--stone)}
+  .row{display:grid;grid-template-columns:4fr 6fr auto;gap:8px 40px;align-items:center;padding:24px 0;border-bottom:2px solid var(--stone)}
   .row h3{margin:0}
   .row p{margin:0;color:var(--muted)}
 
   /* Подход: крупный заголовок, стойка и текст без иконок */
   #approach{padding:120px 0}
   #approach h2{font-size:clamp(34px,5.6vw,64px);max-width:900px;letter-spacing:-.02em}
-  .approach{display:grid;grid-template-columns:3fr 7fr;gap:56px;align-items:start;margin-top:48px}
-  .approach .lead{margin-bottom:32px}
-  .points6{display:grid;grid-template-columns:1fr 1fr;gap:28px 40px}
+  .approach{display:grid;grid-template-columns:3fr 7fr;grid-template-areas:"rack lead" "rack points";column-gap:56px;align-items:start;margin-top:48px}
+  .approach .rack{grid-area:rack}
+  .approach .lead{grid-area:lead;margin-bottom:32px}
+  .points6{grid-area:points;display:grid;grid-template-columns:1fr 1fr;gap:28px 40px}
   .points6 p{margin:0;color:var(--muted)}
   .points6 b{display:block;color:var(--text);font-size:18px;margin-bottom:4px}
 
@@ -89,14 +91,16 @@
   .gallery button{padding:0;border:2px solid var(--stone);border-radius:var(--radius);background:none;cursor:zoom-in;display:block;width:100%;overflow:hidden}
   .gallery button:hover{border-color:var(--text)}
   .gallery figcaption{padding:12px 2px 0}
-  .tag{display:inline-block;font-size:14px;font-weight:600;color:var(--text);background:var(--bg);border:2px solid var(--stone);border-radius:4px;padding:0 8px;margin-right:8px}
-  .gallery figcaption b{font-weight:600}
-  .gallery figcaption span.d{display:block;color:var(--muted);font-size:15px;margin-top:4px}
-  .lightbox{position:fixed;inset:0;background:rgba(14,22,18,.92);display:none;align-items:center;justify-content:center;z-index:50;padding:64px 16px}
+  .tag{display:inline-block;font-size:14px;font-weight:600;color:var(--text);background:var(--bg);border:2px solid var(--stone);border-radius:var(--radius);padding:0 8px;margin-bottom:6px}
+  .gallery figcaption b{display:block}
+  .gallery figcaption span.d{display:block;color:var(--muted);font-size:15px;margin-top:2px}
+  .swipe-hint{display:none}
+  .lightbox{position:fixed;inset:0;background:rgba(14,22,18,.94);display:none;align-items:center;justify-content:center;z-index:50;padding:72px 76px}
   .lightbox.open{display:flex}
   .lightbox img{max-height:100%;border-radius:var(--radius)}
   .lb-btn{position:absolute;background:var(--bg);color:var(--text);border:0;border-radius:var(--radius);min-width:48px;min-height:48px;font-size:24px;cursor:pointer;font-family:inherit}
-  .lb-close{top:12px;right:12px}.lb-prev{left:12px}.lb-next{right:12px}
+  .lb-close{top:12px;right:12px}.lb-prev{left:14px}.lb-next{right:14px}
+  .lb-count{position:absolute;bottom:20px;left:0;right:0;text-align:center;color:var(--on-green-muted);font-size:15px}
 
   /* Варианты: три полосы, средняя тёмная */
   #plans{padding:96px 0}
@@ -119,18 +123,24 @@
   /* FAQ */
   #faq{padding:80px 0}
   .faq{max-width:820px;margin-top:28px;border-top:2px solid var(--text)}
-  details{border-bottom:2px solid var(--stone)}
-  summary{cursor:pointer;padding:20px 0;font-weight:600;font-size:18px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .faq details{border-bottom:2px solid var(--stone)}
+  summary{cursor:pointer;list-style:none}
   summary::-webkit-details-marker{display:none}
-  summary::after{content:"+";flex:none;width:32px;height:32px;display:grid;place-items:center;border:2px solid var(--text);border-radius:4px;font-size:20px;line-height:1}
-  details[open] summary::after{content:"−";background:var(--text);color:#fff}
-  details p{margin:0;padding:0 48px 20px 0;color:var(--muted)}
+  .faq summary{padding:20px 0;font-weight:600;font-size:18px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .faq summary::after{content:"+";flex:none;width:32px;height:32px;display:grid;place-items:center;border:2px solid var(--text);border-radius:var(--radius);font-size:20px;line-height:1}
+  .faq details[open] summary::after{content:"−";background:var(--text);color:#fff}
+  .faq details p{margin:0;padding:0 48px 20px 0;color:var(--muted)}
 
   /* Форма на тёмно-зелёном */
   .contact{background:var(--green);color:#fff;padding:96px 0}
   .contact .grid{display:grid;grid-template-columns:5fr 6fr;gap:56px;align-items:start}
   .contact .lead{color:var(--on-green)}
   .contact .demo{color:var(--on-green-muted);font-size:15px;margin-top:24px}
+  .privacy{margin-top:20px;border-top:2px solid rgba(255,255,255,.18);border-bottom:2px solid rgba(255,255,255,.18)}
+  .privacy summary{padding:12px 0;font-weight:600;color:#fff;display:flex;justify-content:space-between;gap:12px;min-height:44px;align-items:center}
+  .privacy summary::after{content:"+";font-size:20px;line-height:1}
+  .privacy[open] summary::after{content:"−"}
+  .privacy p{color:var(--on-green-muted);font-size:15px;margin:0 0 14px}
   form{background:var(--white);color:var(--text);border-radius:var(--radius);padding:28px}
   label{display:block;font-weight:600;margin:0 0 6px}
   .opt{font-weight:400;color:var(--muted)}
@@ -138,45 +148,114 @@
   input:focus,select:focus,textarea:focus{outline:none;border-color:var(--text)}
   textarea{min-height:120px;resize:vertical}
   .check{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:15px;color:var(--muted)}
-  .check input{width:20px;min-height:20px;margin:3px 0 0;accent-color:var(--copper)}
-  .proto{font-size:14px;background:var(--bg);border:2px solid var(--stone);border-radius:var(--radius);padding:10px 14px;margin-top:14px;display:none}
+  .check input{width:20px;min-height:20px;margin:3px 0 0;accent-color:var(--copper);flex:none}
+  .proto{font-size:14px;background:var(--bg);border:2px solid var(--stone);border-radius:var(--radius);padding:10px 14px;margin:14px 0 0}
+  .proto:empty{display:none}
 
   footer{background:var(--green-d);color:var(--on-green-muted);padding:36px 0;font-size:15px}
   footer .bar{flex-wrap:wrap;gap:12px 32px}
+  footer .f-name{color:#fff;font-weight:600}
   footer a{color:#fff}
 
+  /* ---------- Планшет ---------- */
   @media (max-width:980px){
-    .hero .grid,.main-dir,.contact .grid,.approach{grid-template-columns:minmax(0,1fr)}
+    .hero .grid,.main-dir,.contact .grid{grid-template-columns:minmax(0,1fr)}
     .hero .text{padding-bottom:0}
-    .approach img{max-width:260px}
-    .main-dir img{width:100%;max-width:480px}
+    .main-dir img{width:100%;max-width:520px}
     .main-dir{gap:28px}
+    .approach{grid-template-columns:minmax(0,1fr) 180px;grid-template-areas:"lead rack" "points points";column-gap:32px}
+    .row,.band{grid-template-columns:minmax(0,2fr) minmax(0,3fr);align-items:start}
+    .row .link,.band .btn{grid-column:2;justify-self:start}
   }
   @media (max-width:900px){
     .burger{display:block}
-    nav{display:none;position:absolute;left:0;right:0;top:68px;background:var(--bg);border-bottom:2px solid var(--stone)}
+    nav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--bg);border-bottom:2px solid var(--stone)}
     nav.open{display:block}
-    nav ul{flex-direction:column;gap:0;padding:8px 20px 16px}
-    nav a{display:block;padding:12px 0}
-  }
-  @media (max-width:760px){
-    #services,#panel,#plans,.contact{padding:64px 0}
-    #approach{padding:72px 0}
+    nav ul{flex-direction:column;align-items:stretch;gap:0;padding:4px 20px 20px}
+    nav a{display:block;padding:14px 0;border-bottom:2px solid var(--stone);font-size:18px}
+    nav .nav-cta{display:block;margin-top:16px}
+    nav .nav-cta a{display:flex;border-bottom:0;color:#fff;font-size:16px}
     .bar .btn.cta{display:none}
-    .row,.band{grid-template-columns:1fr;gap:10px}
-    .band{padding:24px 20px}
-    .row .btn,.band .btn{justify-self:start;margin-top:6px}
-    .points6,.steps{grid-template-columns:1fr}
-    .steps{gap:28px}
-    .gallery{grid-template-columns:1fr}
+  }
+
+  /* ---------- Телефон ---------- */
+  @media (max-width:760px){
+    :root{--header:60px}
+    body{font-size:16px}
+    .lead{font-size:17px}
+    h2{font-size:28px}
+    h3{font-size:19px}
+    .logo img{width:28px;height:28px}
+
+    /* первый экран: текст, кнопки, затем кадр разреза от края до края */
+    .hero{padding:28px 0 0}
+    .hero .grid{gap:24px}
+    h1{font-size:34px;margin-bottom:12px}
+    .hero p.sub{font-size:17px;margin-bottom:20px}
+    .actions{gap:4px 20px}
+    .actions .btn{flex:1 1 100%}
+    .points{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:16px;font-size:15px}
+    .points li{gap:8px}
+    .points li::before{width:8px;height:8px}
+    .hero picture{margin:0 -20px}
+    .hero picture img{width:100%}
+
+    #services,#panel,#plans,#faq{padding:56px 0}
+    .main-dir{margin:24px 0 32px;gap:18px}
+    .main-dir h3{font-size:26px;margin-bottom:8px}
+    .main-dir p{font-size:16px;margin-bottom:16px}
+    .main-dir .btn{width:100%}
+    .row{grid-template-columns:1fr;gap:4px;padding:18px 0}
+    .row .link,.band .btn{grid-column:auto}
+
+    #approach{padding:56px 0}
+    #approach h2{font-size:30px}
+    .approach{grid-template-columns:minmax(0,1fr) 84px;column-gap:16px;margin-top:20px}
+    .approach .lead{margin-bottom:24px}
+    .points6{grid-template-columns:1fr;gap:16px}
+    .points6 b{font-size:17px;margin-bottom:2px}
+
+    /* галерея листается вбок; соседний экран выглядывает справа */
+    .gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:24px -20px 8px;padding:0 20px 8px;scroll-padding-inline:20px;scrollbar-width:none}
+    .gallery::-webkit-scrollbar{display:none}
+    .gallery figure{flex:0 0 86%;scroll-snap-align:start}
     .gallery figure:first-child{grid-row:auto}
+    .gallery figcaption span.d{font-size:14px}
+    .swipe-hint{display:block;color:var(--muted);font-size:14px;margin:0 0 20px}
+    #panel .btn{width:100%}
+    .lightbox{padding:64px 8px 84px}
+    .lb-prev,.lb-next{top:auto;bottom:16px}
+    .lb-prev{left:16px}.lb-next{right:16px}
+    .lb-count{bottom:30px}
+
+    .bands{margin-top:24px;gap:8px}
+    .band{grid-template-columns:1fr;gap:8px;padding:20px}
+    .band .btn{width:100%;margin-top:8px}
+    .note{font-size:14px}
+
+    #start{padding:56px 0}
+    .steps{grid-template-columns:1fr;gap:0;margin:20px 0 24px}
+    .steps li{display:grid;grid-template-columns:44px 1fr;column-gap:12px;padding:16px 0;border-top-width:2px}
+    .steps li:not(:first-child){border-top-color:var(--stone)}
+    .steps li::before{grid-row:1 / span 2;font-size:34px;margin:0}
+    .steps h3{margin:2px 0 4px}
+    #start .btn{width:100%}
+
+    .faq{margin-top:16px}
+    .faq summary{font-size:17px;padding:16px 0}
+    .faq details p{padding:0 0 16px}
+
+    .contact{padding:56px 0}
+    .contact .grid{gap:28px}
+    .contact .demo{margin-top:16px}
     form{padding:20px}
+    footer{padding:28px 0}
   }
 </style>
 </head>
 <body>
 
-<header id="top">
+<header>
   <div class="wrap bar">
     <a class="logo" href="#top"><img src="../images/icon-server.png" alt="">Хостинг для проектов</a>
     <button class="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu">☰</button>
@@ -186,6 +265,7 @@
         <li><a href="#panel">Панель</a></li>
         <li><a href="#plans">Варианты</a></li>
         <li><a href="#faq">Вопросы</a></li>
+        <li class="nav-cta"><a class="btn" href="#contact">Обсудить проект</a></li>
       </ul>
     </nav>
     <a class="btn cta" href="#contact">Обсудить проект</a>
@@ -193,7 +273,7 @@
 </header>
 
 <main>
-<section class="hero">
+<section class="hero" id="top">
   <div class="wrap grid">
     <div class="text">
       <h1>Хостинг, с&nbsp;которого удобно начать и&nbsp;расти</h1>
@@ -208,7 +288,10 @@
         <li>Помощь с запуском</li>
       </ul>
     </div>
-    <img src="../images/hero-section.jpg" width="1600" height="1120" alt="Иллюстрация в разрезе: на поверхности растут постройки от одного блока с флажком до квартала из нескольких корпусов, под землёй в толще камня стоит серверная, от неё к постройкам идут медные кабели">
+    <picture>
+      <source media="(max-width:760px)" srcset="../images/hero-section-mobile.jpg" width="1280" height="960">
+      <img src="../images/hero-section.jpg" width="1600" height="1120" alt="Иллюстрация в разрезе: на поверхности растут постройки от одного блока с флажком до квартала из нескольких корпусов, под землёй в толще камня стоит серверная, от неё к постройкам идут медные кабели">
+    </picture>
   </div>
 </section>
 
@@ -216,7 +299,7 @@
   <div class="wrap">
     <h2>Для игры, разработки и собственных идей</h2>
     <div class="main-dir">
-      <img src="../images/first-server.jpg" width="1200" height="1000" alt="Фрагмент иллюстрации: один блок-сервер с огоньками и флажок на поверхности, от блока под землю уходит медный кабель">
+      <img src="../images/first-server.jpg" width="1200" height="840" alt="Фрагмент иллюстрации: один блок-сервер с огоньками и флажок на поверхности, от блока под землю уходит медный кабель">
       <div>
         <h3>Minecraft</h3>
         <p>Сервер для друзей или сообщества. Подбор конфигурации зависит от версии, сборки, модов, плагинов и предполагаемой нагрузки.</p>
@@ -224,9 +307,9 @@
       </div>
     </div>
     <div class="rows">
-      <div class="row"><h3>Другие игровые серверы</h3><p>Размещение серверов для игровых сообществ. Доступные игры и требования уточняются при выборе конфигурации.</p><a class="btn line" href="#contact">Обсудить задачу</a></div>
-      <div class="row"><h3>Боты, сайты и приложения</h3><p>Площадка для Telegram- и Discord-ботов, небольших веб-проектов и приложений. Среда запуска подбирается под ваш стек.</p><a class="btn line" href="#contact">Обсудить задачу</a></div>
-      <div class="row"><h3>VPS и индивидуальные задачи</h3><p>Отдельный вариант для проектов, которым нужны собственная среда и больший контроль над настройкой.</p><a class="btn line" href="#contact">Обсудить задачу</a></div>
+      <div class="row"><h3>Другие игровые серверы</h3><p>Размещение серверов для игровых сообществ. Доступные игры и требования уточняются при выборе конфигурации.</p><a class="link" href="#contact">Обсудить задачу</a></div>
+      <div class="row"><h3>Боты, сайты и приложения</h3><p>Площадка для Telegram- и Discord-ботов, небольших веб-проектов и приложений. Среда запуска подбирается под ваш стек.</p><a class="link" href="#contact">Обсудить задачу</a></div>
+      <div class="row"><h3>VPS и индивидуальные задачи</h3><p>Отдельный вариант для проектов, которым нужны собственная среда и больший контроль над настройкой.</p><a class="link" href="#contact">Обсудить задачу</a></div>
     </div>
   </div>
 </section>
@@ -235,17 +318,15 @@
   <div class="wrap">
     <h2>Понятное управление и ресурсы под вашу задачу</h2>
     <div class="approach">
-      <img src="../images/rack-front.png" width="1000" height="1040" alt="Иллюстрация: фронт серверной стойки с вычислительным узлом, накопителями, консолью, сетевым оборудованием, хранилищем резервных копий и коммутацией">
-      <div>
-        <p class="lead">Начать можно с небольшого проекта. По мере его развития важны понятные ограничения, удобные инструменты и возможность изменить конфигурацию.</p>
-        <div class="points6">
-          <div><b>Производительность под нагрузку</b><p>Линейки на Ryzen и NVMe позволяют подобрать основу для разных задач.</p></div>
-          <div><b>Управление через браузер</b><p>Основные действия с игровым сервером доступны в веб-панели.</p></div>
-          <div><b>Контроль ресурсов</b><p>Использование памяти и диска помогает заметить, когда проекту нужна оптимизация или другая конфигурация.</p></div>
-          <div><b>Защита инфраструктуры</b><p>DDoS-защита снижает риски сетевых атак. Возможности защиты зависят от выбранной услуги.</p></div>
-          <div><b>Резервные копии</b><p>Возможность сохранить и восстановить данные учитывается при выборе условий размещения.</p></div>
-          <div><b>Помощь с выбором</b><p>Опишите задачу и ограничения — это поможет подобрать подходящий вариант.</p></div>
-        </div>
+      <img class="rack" src="../images/rack-front.png" width="1000" height="1040" alt="Иллюстрация: фронт серверной стойки с вычислительным узлом, накопителями, консолью, сетевым оборудованием, хранилищем резервных копий и коммутацией">
+      <p class="lead">Начать можно с небольшого проекта. По мере его развития важны понятные ограничения, удобные инструменты и возможность изменить конфигурацию.</p>
+      <div class="points6">
+        <div><b>Производительность под нагрузку</b><p>Линейки на Ryzen и NVMe позволяют подобрать основу для разных задач.</p></div>
+        <div><b>Управление через браузер</b><p>Основные действия с игровым сервером доступны в веб-панели.</p></div>
+        <div><b>Контроль ресурсов</b><p>Использование памяти и диска помогает заметить, когда проекту нужна оптимизация или другая конфигурация.</p></div>
+        <div><b>Защита инфраструктуры</b><p>DDoS-защита снижает риски сетевых атак. Возможности защиты зависят от выбранной услуги.</p></div>
+        <div><b>Резервные копии</b><p>Возможность сохранить и восстановить данные учитывается при выборе условий размещения.</p></div>
+        <div><b>Помощь с выбором</b><p>Опишите задачу и ограничения — это поможет подобрать подходящий вариант.</p></div>
       </div>
     </div>
   </div>
@@ -263,6 +344,7 @@
       <figure><button data-i="2" aria-label="Увеличить: консоль"><img src="../images/panel-console.png" width="1600" height="1000" alt="Пример интерфейса панели: консоль сервера с журналом событий и кнопками запуска, перезапуска и остановки"></button>
         <figcaption><span class="tag">Пример интерфейса</span><b>Консоль и запуск</b><span class="d">Журнал событий, команды серверу, запуск и остановка.</span></figcaption></figure>
     </div>
+    <p class="swipe-hint">Три экрана: листайте вбок, нажмите, чтобы увеличить.</p>
     <a class="btn" href="#contact">Уточнить возможности для моего проекта</a>
   </div>
 </section>
@@ -271,8 +353,8 @@
   <div class="wrap">
     <h2>Выберите направление, конфигурацию подберём под задачу</h2>
     <div class="bands">
-      <div class="band"><div><h3>Доступный старт</h3><span class="cpu">Ryzen 7 7700</span></div><p>Линейка на Ryzen 7 7700. Для небольших проектов, которым важен бюджет и подходящий объём ресурсов.</p><a class="btn" href="#contact">Обсудить старт</a></div>
-      <div class="band dark"><div><h3>Повышенная производительность</h3><span class="cpu">Ryzen 9 7950X3D</span></div><p>Линейка на Ryzen 9 7950X3D. Для более требовательных задач. Итоговый результат зависит от выделенных ресурсов и самой нагрузки.</p><a class="btn" href="#contact">Обсудить нагрузку</a></div>
+      <div class="band"><div><h3>Доступный старт</h3><span class="cpu">Линейка на Ryzen 7 7700</span></div><p>Для небольших проектов, которым важен бюджет и подходящий объём ресурсов.</p><a class="btn" href="#contact">Обсудить старт</a></div>
+      <div class="band dark"><div><h3>Повышенная производительность</h3><span class="cpu">Линейка на Ryzen 9 7950X3D</span></div><p>Для более требовательных задач. Итоговый результат зависит от выделенных ресурсов и самой нагрузки.</p><a class="btn" href="#contact">Обсудить нагрузку</a></div>
       <div class="band"><div><h3>Индивидуальная конфигурация</h3><span class="cpu">Под ваш стек</span></div><p>Для нескольких сервисов, нестандартного стека или особых требований. Начнём с описания вашей задачи.</p><a class="btn" href="#contact">Обсудить конфигурацию</a></div>
     </div>
     <p class="note">Объём памяти, диска, процессорные лимиты, дополнительные возможности и стоимость определяются при подборе. Модель процессора указывает на серверную линейку и не означает выделение всего процессора одному проекту.</p>
@@ -311,6 +393,10 @@
       <h2>Расскажите, что хотите запустить</h2>
       <p class="lead">Укажите направление и коротко опишите задачу. Например: Minecraft с модами, Telegram-бот на Python или небольшой сайт с базой данных.</p>
       <p class="demo">Учебный демонстрационный сайт. Форма передаёт заявку автору работы; оплата и оформление хостинга здесь не производятся.</p>
+      <details class="privacy" id="privacy">
+        <summary>Как используются данные формы</summary>
+        <p>Отправляя форму, вы передаёте указанные в ней данные (имя или псевдоним, email, выбранное направление и описание задачи) автору этой учебной работы. Данные используются только для ответа на обращение и демонстрации работы формы в рамках лабораторной работы. Они хранятся в закрытой CRM автора и не публикуются на сайте, не передаются третьим лицам и не используются для рекламных рассылок. Оплата и оформление хостинга через этот сайт не производятся. Чтобы удалить свои данные, напишите об этом в новой заявке через эту же форму.</p>
+      </details>
     </div>
     <!-- На сайте Битрикс24 на этом месте — штатный блок CRM-формы. -->
     <form novalidate>
@@ -332,9 +418,9 @@
       </select>
       <label for="f-task">Описание задачи</label>
       <textarea id="f-task" name="task" required></textarea>
-      <label class="check"><input type="checkbox" required> Я согласен(на) на обработку данных формы для ответа на обращение (текст соглашения открывается по ссылке в CRM-форме)</label>
+      <label class="check"><input type="checkbox" required><span>Я согласен(на) на обработку данных формы для ответа на обращение. <a href="#privacy">Как используются данные</a></span></label>
       <button class="btn" type="submit" style="margin-top:18px;width:100%">Отправить заявку</button>
-      <p class="proto" role="status">Прототип: проверка полей пройдена, но здесь заявка никуда не отправляется. На опубликованном сайте используется CRM-форма Битрикс24.</p>
+      <p class="proto" role="status" aria-live="polite"></p>
     </form>
   </div>
 </section>
@@ -342,9 +428,9 @@
 
 <footer>
   <div class="wrap bar">
-    <b style="color:#fff">Хостинг для проектов</b>
+    <span class="f-name">Хостинг для проектов</span>
     <span>Учебная работа: одностраничный сайт об услуге хостинга</span>
-    <a href="#contact">Обработка данных формы</a>
+    <a href="#privacy">Обработка данных формы</a>
     <a href="#top">Наверх</a>
   </div>
 </footer>
@@ -354,32 +440,65 @@
   <button class="lb-btn lb-prev" aria-label="Предыдущее">‹</button>
   <img alt="">
   <button class="lb-btn lb-next" aria-label="Следующее">›</button>
+  <p class="lb-count" aria-live="polite"></p>
 </div>
 
 <script>
-  // Мобильное меню
-  const burger = document.querySelector('.burger'), nav = document.getElementById('menu');
-  burger.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
-    burger.setAttribute('aria-expanded', open);
-  });
-  nav.addEventListener('click', e => { if (e.target.tagName === 'A') { nav.classList.remove('open'); burger.setAttribute('aria-expanded', false); } });
+  const page = [document.querySelector('header'), document.querySelector('main'), document.querySelector('footer')];
 
-  // Галерея с увеличением
+  // Мобильное меню: открывается кнопкой, закрывается кнопкой, Esc, нажатием мимо меню или выбором пункта
+  const burger = document.querySelector('.burger'), nav = document.getElementById('menu');
+  const setMenu = open => {
+    nav.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+    burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    burger.textContent = open ? '✕' : '☰';
+  };
+  burger.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+  nav.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('click', e => { if (nav.classList.contains('open') && !e.target.closest('header')) setMenu(false); });
+
+  // Ссылки на текст об обработке данных раскрывают его
+  const privacy = document.getElementById('privacy');
+  document.querySelectorAll('a[href="#privacy"]').forEach(a => a.addEventListener('click', () => { privacy.open = true; }));
+
+  // Галерея с увеличением: фон страницы недоступен, пока окно открыто
   const imgs = [...document.querySelectorAll('.gallery img')];
-  const lb = document.querySelector('.lightbox'), lbImg = lb.querySelector('img');
+  const lb = document.querySelector('.lightbox'), lbImg = lb.querySelector('img'), lbCount = lb.querySelector('.lb-count');
   let cur = 0, opener = null;
-  const show = i => { cur = (i + imgs.length) % imgs.length; lbImg.src = imgs[cur].src; lbImg.alt = imgs[cur].alt; };
-  const close = () => { lb.classList.remove('open'); opener && opener.focus(); };
-  document.querySelectorAll('.gallery button').forEach(b => b.addEventListener('click', () => {
-    opener = b; show(+b.dataset.i); lb.classList.add('open'); lb.querySelector('.lb-close').focus();
-  }));
+  const show = i => {
+    cur = (i + imgs.length) % imgs.length;
+    lbImg.src = imgs[cur].src; lbImg.alt = imgs[cur].alt;
+    lbCount.textContent = `${cur + 1} из ${imgs.length}`;
+  };
+  const isOpen = () => lb.classList.contains('open');
+  const open = (i, from) => {
+    opener = from; show(i);
+    lb.classList.add('open'); document.body.classList.add('locked');
+    page.forEach(el => { el.inert = true; });
+    lb.querySelector('.lb-close').focus();
+  };
+  const close = () => {
+    lb.classList.remove('open'); document.body.classList.remove('locked');
+    page.forEach(el => { el.inert = false; });
+    opener && opener.focus();
+  };
+  document.querySelectorAll('.gallery button').forEach(b => b.addEventListener('click', () => open(+b.dataset.i, b)));
   lb.querySelector('.lb-close').onclick = close;
   lb.querySelector('.lb-prev').onclick = () => show(cur - 1);
   lb.querySelector('.lb-next').onclick = () => show(cur + 1);
   lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  // Фокус не выходит из окна: Tab с последней кнопки возвращает на первую
+  lb.addEventListener('keydown', e => {
+    if (e.key !== 'Tab') return;
+    const f = [...lb.querySelectorAll('button')];
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
   document.addEventListener('keydown', e => {
-    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); burger.focus(); return; }
+    if (!isOpen()) return;
     if (e.key === 'Escape') close();
     if (e.key === 'ArrowLeft') show(cur - 1);
     if (e.key === 'ArrowRight') show(cur + 1);
@@ -390,8 +509,8 @@
   form.addEventListener('submit', e => {
     e.preventDefault();
     const note = form.querySelector('.proto');
-    if (!form.checkValidity()) { note.style.display = 'none'; form.reportValidity(); return; }
-    note.style.display = 'block';
+    if (!form.checkValidity()) { note.textContent = ''; form.reportValidity(); return; }
+    note.textContent = 'Прототип: проверка полей пройдена, но здесь заявка никуда не отправляется. На опубликованном сайте используется CRM-форма Битрикс24.';
   });
 </script>
 </body>
